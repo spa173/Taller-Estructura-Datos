@@ -1,0 +1,42 @@
+import java.util.*;
+
+class BFS {
+    private HashMap<String, List<String>> grafo = new HashMap<>();
+
+    public void agregarArista(String a, String b) {
+        grafo.putIfAbsent(a, new ArrayList<>());
+        grafo.putIfAbsent(b, new ArrayList<>());
+        grafo.get(a).add(b);
+        grafo.get(b).add(a);
+    }
+
+    public void bfs(String inicio) {
+        Set<String> visitados = new HashSet<>();
+        Queue<String> cola = new LinkedList<>();
+
+        cola.add(inicio);
+        visitados.add(inicio);
+
+        while (!cola.isEmpty()) {
+            String actual = cola.poll();
+            System.out.print(actual + " ");
+
+            for (String vecino : grafo.get(actual)) {
+                if (!visitados.contains(vecino)) {
+                    visitados.add(vecino);
+                    cola.add(vecino);
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        BFS g = new BFS();
+
+        g.agregarArista("A", "B");
+        g.agregarArista("A", "C");
+        g.agregarArista("B", "D");
+
+        g.bfs("A");
+    }
+}

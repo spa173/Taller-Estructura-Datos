@@ -1,0 +1,53 @@
+import java.util.*;
+
+class GrafoMatriz {
+    private int[][] matriz;
+    private List<String> vertices;
+    private int max;
+
+    public GrafoMatriz(int max) {
+        this.max = max;
+        matriz = new int[max][max];
+        vertices = new ArrayList<>();
+    }
+
+    public void agregarVertice(String v) {
+        vertices.add(v);
+    }
+
+    public void agregarArista(String v1, String v2) {
+        int i = vertices.indexOf(v1);
+        int j = vertices.indexOf(v2);
+
+        if (i != -1 && j != -1) {
+            matriz[i][j] = 1;
+            matriz[j][i] = 1; // No dirigido
+        }
+    }
+
+    public void mostrarMatriz() {
+        System.out.println("Matriz de Adyacencia:");
+        for (int i = 0; i < vertices.size(); i++) {
+            for (int j = 0; j < vertices.size(); j++) {
+                System.out.print(matriz[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public static void main(String[] args) {
+        GrafoMatriz g = new GrafoMatriz(4);
+
+        g.agregarVertice("A");
+        g.agregarVertice("B");
+        g.agregarVertice("C");
+        g.agregarVertice("D");
+
+        g.agregarArista("A", "B");
+        g.agregarArista("B", "C");
+        g.agregarArista("C", "D");
+        g.agregarArista("D", "A");
+
+        g.mostrarMatriz();
+    }
+}
